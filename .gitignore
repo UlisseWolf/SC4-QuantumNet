@@ -1,0 +1,9 @@
+build/
+out/
+dist/
+.vs/
+*.user
+CMakeSettings.json
+*.log
+# The Lua engine was ported to the DLL: Lua scripts are no longer part of this project.
+*.lua

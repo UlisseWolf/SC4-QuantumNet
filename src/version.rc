@@ -1,0 +1,30 @@
+#include <winver.h>
+#include "version.h"
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION PLUGIN_VERSION_MAJOR,PLUGIN_VERSION_MINOR,PLUGIN_VERSION_PATCH,0
+ PRODUCTVERSION PLUGIN_VERSION_MAJOR,PLUGIN_VERSION_MINOR,PLUGIN_VERSION_PATCH,0
+ FILEFLAGSMASK 0x3fL
+ FILEFLAGS 0x0L
+ FILEOS VOS_NT_WINDOWS32
+ FILETYPE VFT_DLL
+ FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "Ulisse Wolf"
+            VALUE "FileDescription", "SC4 QuantumNet - ControlNet-style resource for SimCity 4"
+            VALUE "FileVersion", PLUGIN_VERSION_STR
+            VALUE "InternalName", "SC4QuantumNet"
+            VALUE "OriginalFilename", "SC4QuantumNet.dll"
+            VALUE "ProductName", "SC4 QuantumNet"
+            VALUE "ProductVersion", PLUGIN_VERSION_STR
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

@@ -1,0 +1,45 @@
+name: Build
+
+on:
+  push:
+    branches: [ staging, master ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tests:
+    name: Simulation tests (Linux)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        run: cmake --build build --parallel
+      - name: Test
+        run: ctest --test-dir build --output-on-failure
+
+  dll:
+    name: SC4QuantumNet.dll (Win32, MSVC)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Configure
+        run: cmake -S . -B build -A Win32
+      - name: Build
+        run: cmake --build build --config Release --parallel
+      - name: Test
+        run: ctest --test-dir build -C Release --output-on-failure
+      - name: Package
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force dist | Out-Null
+          Copy-Item build/Release/SC4QuantumNet.dll dist/
+          Copy-Item config/SC4QuantumNet.ini dist/
+          Copy-Item README.md dist/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SC4QuantumNet
+          path: dist/
